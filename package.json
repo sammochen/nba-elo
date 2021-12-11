@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "download": "node src/download.js",
+    "parse": "node src/parse.js",
+    "plot": "python3 src/plot.py"
   },
   "author": "",
   "license": "ISC",

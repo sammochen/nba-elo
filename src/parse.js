@@ -3,7 +3,6 @@ import fs from "fs";
 
 // first day of regular season is october 19th
 const firstDay = new Date(2021, 9, 19);
-const today = new Date(2021, 11, 31);
 const EloRank = new elorank();
 
 const main = async () => {

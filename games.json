@@ -11511,5 +11511,179 @@
       "name": "Kings"
     },
     "visitor_team_score": 103
+  },
+  {
+    "id": 473806,
+    "date": "2021-12-12T00:00:00.000Z",
+    "home_team": {
+      "id": 9,
+      "abbreviation": "DET",
+      "city": "Detroit",
+      "conference": "East",
+      "division": "Central",
+      "full_name": "Detroit Pistons",
+      "name": "Pistons"
+    },
+    "home_team_score": 104,
+    "period": 4,
+    "postseason": false,
+    "season": 2021,
+    "status": "Final",
+    "time": "",
+    "visitor_team": {
+      "id": 3,
+      "abbreviation": "BKN",
+      "city": "Brooklyn",
+      "conference": "East",
+      "division": "Atlantic",
+      "full_name": "Brooklyn Nets",
+      "name": "Nets"
+    },
+    "visitor_team_score": 116
+  },
+  {
+    "id": 473808,
+    "date": "2021-12-12T00:00:00.000Z",
+    "home_team": {
+      "id": 20,
+      "abbreviation": "NYK",
+      "city": "New York",
+      "conference": "East",
+      "division": "Atlantic",
+      "full_name": "New York Knicks",
+      "name": "Knicks"
+    },
+    "home_team_score": 97,
+    "period": 4,
+    "postseason": false,
+    "season": 2021,
+    "status": "Final",
+    "time": "",
+    "visitor_team": {
+      "id": 17,
+      "abbreviation": "MIL",
+      "city": "Milwaukee",
+      "conference": "East",
+      "division": "Central",
+      "full_name": "Milwaukee Bucks",
+      "name": "Bucks"
+    },
+    "visitor_team_score": 112
+  },
+  {
+    "id": 473807,
+    "date": "2021-12-12T00:00:00.000Z",
+    "home_team": {
+      "id": 21,
+      "abbreviation": "OKC",
+      "city": "Oklahoma City",
+      "conference": "West",
+      "division": "Northwest",
+      "full_name": "Oklahoma City Thunder",
+      "name": "Thunder"
+    },
+    "home_team_score": 84,
+    "period": 4,
+    "postseason": false,
+    "season": 2021,
+    "status": "Final",
+    "time": "",
+    "visitor_team": {
+      "id": 7,
+      "abbreviation": "DAL",
+      "city": "Dallas",
+      "conference": "West",
+      "division": "Southwest",
+      "full_name": "Dallas Mavericks",
+      "name": "Mavericks"
+    },
+    "visitor_team_score": 103
+  },
+  {
+    "id": 473811,
+    "date": "2021-12-12T00:00:00.000Z",
+    "home_team": {
+      "id": 25,
+      "abbreviation": "POR",
+      "city": "Portland",
+      "conference": "West",
+      "division": "Northwest",
+      "full_name": "Portland Trail Blazers",
+      "name": "Trail Blazers"
+    },
+    "home_team_score": 111,
+    "period": 4,
+    "postseason": false,
+    "season": 2021,
+    "status": "Final",
+    "time": "",
+    "visitor_team": {
+      "id": 18,
+      "abbreviation": "MIN",
+      "city": "Minnesota",
+      "conference": "West",
+      "division": "Northwest",
+      "full_name": "Minnesota Timberwolves",
+      "name": "Timberwolves"
+    },
+    "visitor_team_score": 116
+  },
+  {
+    "id": 473809,
+    "date": "2021-12-12T00:00:00.000Z",
+    "home_team": {
+      "id": 14,
+      "abbreviation": "LAL",
+      "city": "Los Angeles",
+      "conference": "West",
+      "division": "Pacific",
+      "full_name": "Los Angeles Lakers",
+      "name": "Lakers"
+    },
+    "home_team_score": 106,
+    "period": 4,
+    "postseason": false,
+    "season": 2021,
+    "status": "Final",
+    "time": "",
+    "visitor_team": {
+      "id": 22,
+      "abbreviation": "ORL",
+      "city": "Orlando",
+      "conference": "East",
+      "division": "Southeast",
+      "full_name": "Orlando Magic",
+      "name": "Magic"
+    },
+    "visitor_team_score": 94
+  },
+  {
+    "id": 473810,
+    "date": "2021-12-12T00:00:00.000Z",
+    "home_team": {
+      "id": 27,
+      "abbreviation": "SAS",
+      "city": "San Antonio",
+      "conference": "West",
+      "division": "Southwest",
+      "full_name": "San Antonio Spurs",
+      "name": "Spurs"
+    },
+    "home_team_score": 112,
+    "period": 4,
+    "postseason": false,
+    "season": 2021,
+    "status": "Final",
+    "time": "",
+    "visitor_team": {
+      "id": 19,
+      "abbreviation": "NOP",
+      "city": "New Orleans",
+      "conference": "West",
+      "division": "Southwest",
+      "full_name": "New Orleans Pelicans",
+      "name": "Pelicans"
+    },
+    "visitor_team_score": 97
   }
 ]

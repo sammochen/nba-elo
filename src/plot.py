@@ -9,10 +9,15 @@ from matplotlib import font_manager
 nbaBlue = "#1d428a"
 nbaRed = "#c8102e"
 
-startDay = datetime(2021, 10, 15)
-endDay = datetime(2021, 12, 15)
-rightDay = endDay + timedelta(15)
-today = datetime(2021, 12, 13)
+startLineDay = datetime(2021, 10, 18)
+today = datetime(2021, 12, 14)
+endLineDay = today + timedelta(1)
+
+numberLineDay = endLineDay + timedelta(3)
+ratingLineDay = numberLineDay + timedelta(4)
+
+leftBorderDay = startLineDay
+rightBorderDay = ratingLineDay + timedelta(5)
 
 
 def initFonts(defaultFont):
@@ -28,41 +33,89 @@ def initFonts(defaultFont):
 
 
 def prePlot():
-    backgroundColor = "#eee"
 
-    # Change background color
-    plt.figure().patch.set_facecolor(backgroundColor)
-    plt.gca().set_facecolor(backgroundColor)
-
-    # line for today
-    plt.plot([today, today], [1200, 1800], color="#bbb", linewidth=1)
+    plt.figure(figsize=(7, 6), dpi=200)
+    plt.plot([today, today], [1200, 1800], color="#ddd", linewidth=0.5)
 
 
-def getHighlight():
-    highlight = [False] * 30
+def postPlot():
+    plt.title(
+        "NBA Elo Ratings (2021 Season, 19/10 - 12/12)",
+        color=nbaBlue,
+        size=15,
+        fontweight="bold",
+    )
 
-    highlight[0] = True  # DET
-    highlight[4] = True  # HOU
-    highlight[25] = True  # MIL
-    highlight[28] = True  # GSW
-    highlight[29] = True  # PHX
-    return highlight
+    plt.subplots_adjust(
+        left=0.09,
+        right=1 - 0.09,
+        bottom=0.07,
+        top=1 - 0.07,
+    )
+    plt.xlim(leftBorderDay, rightBorderDay)
+    plt.ylim(1290, 1710)
+
+    axes = plt.gca()
+    axes.xaxis.set_major_formatter(matplotlib.dates.DateFormatter("%b"))
+    axes.xaxis.set_major_locator(matplotlib.dates.MonthLocator())
+    plt.xticks(rotation=90)
+
+    plt.ylabel("Elo Rating")
+
+    axes.yaxis.set_major_locator(matplotlib.ticker.MultipleLocator(100))
+    axes.yaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(50))
+
+
+def space(nums, gap):
+    ans = nums[:]
+    delta = 0.1
+    while True:
+        moved = False
+        for i, x in enumerate(ans):
+            above = False
+            below = False
+            for j, y in enumerate(ans):
+                if i == j:
+                    continue
+                if x <= y <= x + gap:
+                    above = True
+                if x - gap <= y <= x:
+                    below = True
+            if above and not below:
+                moved = True
+                ans[i] -= delta
+            if below and not above:
+                moved = True
+                ans[i] += delta
+        if not moved:
+            break
+    return ans
 
 
 def main():
     initFonts("Helvetica Condensed")
+
+    prePlot()
 
     # Load data
     data = json.load(open("data.json"))
     colors = json.load(open("team-colors.json"))
     data.sort(key=lambda e: e["value"][-1][1])  # Sort from bad to good
 
-    highlight = getHighlight()
+    highlightTeams = ["PHX", "BKN", "DET"]
+    highlightTeams = None
 
+    highlightOpacity = 0.7
+    opacity = 0.05
+
+    textSize = 8
+
+    y = [x["value"][-1][1] for x in data]
+    spacedY = space(y, 7.5)
     for ind, obj in enumerate(data):
-        dates = [startDay]
+        dates = [startLineDay]
         dates += [datetime.fromtimestamp(e[0]) for e in obj["value"]]
-        dates += [endDay]
+        dates += [endLineDay]
 
         elos = [1500]
         elos += [e[1] for e in obj["value"]]
@@ -72,48 +125,59 @@ def main():
         mainColor = colors[team]["mainColor"]
         mainHex = colors[team]["colors"][mainColor]["hex"]
 
+        highlight = True if highlightTeams is None else team in highlightTeams
+
         plt.step(
             dates,
             elos,
             where="post",
             label=team,
-            linewidth=2.5,
+            linewidth=1.2,
             color=mainHex,
-            alpha=(0.8 if highlight[ind] else 0.05),
+            alpha=highlightOpacity if highlight else opacity,
             solid_capstyle="round",
         )
 
-        if highlight[ind]:
+        if highlight:
             plt.annotate(
-                f"{30 - ind}. {team} ({elos[-1]})",
-                xy=(rightDay, elos[-1]),
-                xytext=(-5, 0),
+                f"{30 - ind}.",
+                xy=(numberLineDay, spacedY[ind]),
+                xytext=(0, 0),
                 textcoords="offset points",
                 color=mainHex,
                 ha="right",
                 va="center",
                 annotation_clip=False,
-                size=10,
+                size=textSize,
+                fontweight="bold",
+            )
+            plt.annotate(
+                f" {team} ",
+                xy=(numberLineDay, spacedY[ind]),
+                xytext=(0, 0),
+                textcoords="offset points",
+                color=mainHex,
+                ha="left",
+                va="center",
+                annotation_clip=False,
+                size=textSize,
+                fontweight="bold",
+            )
+            plt.annotate(
+                f"({elos[-1]})",
+                xy=(ratingLineDay, spacedY[ind]),
+                xytext=(0, 0),
+                textcoords="offset points",
+                color=mainHex,
+                ha="left",
+                va="center",
+                annotation_clip=False,
+                size=textSize,
                 fontweight="bold",
             )
 
-    plt.suptitle("NBA Elo Ratings", color=nbaBlue, size=15, fontweight="bold")
-    plt.title("19/10/21 — 12/12/21", size=10, fontweight="bold")
-
-    plt.subplots_adjust(left=0.1, right=0.9, bottom=0.1)
-    plt.xlim(startDay, rightDay)
-    plt.ylim(1290, 1710)
-
-    axes = plt.gca()
-    axes.xaxis.set_major_formatter(matplotlib.dates.DateFormatter("%b"))
-    axes.xaxis.set_major_locator(matplotlib.dates.MonthLocator())
-    axes.xaxis.set_minor_locator(matplotlib.dates.DayLocator())
-    plt.xticks(rotation=90)
-
-    axes.yaxis.set_major_locator(matplotlib.ticker.MultipleLocator(100))
-    axes.yaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(50))
-
-    plt.savefig("output.jpg", dpi=400)
+    postPlot()
+    plt.savefig("elo.jpg", dpi=400)
 
 
 main()
